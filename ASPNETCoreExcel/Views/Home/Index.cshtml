@@ -1,0 +1,43 @@
+﻿@model List<ASPNETCoreExcel.Models.Person>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h2>Excel'den Veri Yükle</h2>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+<form asp-action="UploadExcel" asp-controller="Home" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label>Excel Dosyası Yükleyin:</label>
+        <input type="file" name="file" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Yükle</button>
+</form>
+
+@if (Model.Count > 0)
+{
+    <h3 class="mt-4">Yüklenen Veriler:</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>İsim</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var person in Model)
+            {
+                <tr>
+                    <td>@person.Id</td>
+                    <td>@person.Name</td>
+                    <td>@person.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
